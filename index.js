@@ -10,6 +10,9 @@ const app = express();
 // CORS
 app.use(cors());
 
+// Public directory
+app.use(express.static("public"));
+
 // Reading and parsing of the body
 app.use(express.json());
 
