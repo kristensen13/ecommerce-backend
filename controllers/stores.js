@@ -31,11 +31,63 @@ const createStore = async (req, res = response) => {
 };
 
 const updateStore = async (req, res = response) => {
-  res.json({ message: "Update Store" });
+  const id = req.params.id;
+  const uid = req.uid;
+
+  try {
+    const store = await Store.findById(id);
+    if (!store) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Store not found",
+      });
+    }
+
+    const changesStore = {
+      ...req.body,
+      user: uid,
+    };
+
+    const storeUpdated = await Store.findByIdAndUpdate(id, changesStore, {
+      new: true,
+    });
+    res.json({
+      ok: true,
+      msg: "Update Store",
+      store: storeUpdated,
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: "Error updating store",
+    });
+  }
 };
 
 const deleteStore = async (req, res = response) => {
-  res.json({ message: "Delete Store" });
+  const id = req.params.id;
+
+  try {
+    const store = await Store.findById(id);
+    if (!store) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Store not found",
+      });
+    }
+
+    await Store.findByIdAndDelete(id);
+
+    res.json({
+      ok: true,
+      msg: "Deleted Store",
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: "Error deleting store",
+    });
+  }
 };
 
 module.exports = {

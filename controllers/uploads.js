@@ -10,7 +10,7 @@ const uploadFile = (req, res = response) => {
   const id = req.params.id;
 
   // Valid types
-  const validTypes = ["users", "stores", "employees"];
+  const validTypes = ["users", "stores", "employees", "products", "categories"];
   if (!validTypes.includes(type)) {
     return res.status(400).json({
       ok: false,

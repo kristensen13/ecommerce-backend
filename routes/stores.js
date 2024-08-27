@@ -29,8 +29,16 @@ router.post(
   createStore
 );
 
-router.put("/:id", [], updateStore);
+router.put(
+  "/:id",
+  [
+    jwtValidate,
+    check("name", "The name of store is required").not().isEmpty(),
+    validateFields,
+  ],
+  updateStore
+);
 
-router.delete("/:id", deleteStore);
+router.delete("/:id", jwtValidate, deleteStore);
 
 module.exports = router;

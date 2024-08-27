@@ -3,6 +3,8 @@ const fs = require("fs");
 const User = require("../models/user");
 const Store = require("../models/store");
 const Employee = require("../models/employee");
+const Product = require("../models/product");
+const Category = require("../models/category");
 
 const deleteImage = (path) => {
   if (fs.existsSync(path)) {
@@ -53,6 +55,34 @@ const updateImage = async (type, id, fileName) => {
 
       employee.img = fileName;
       await employee.save();
+      return true;
+      break;
+
+    case "products":
+      const product = await Product.findById(id);
+      if (!product) {
+        console.log("Product not found");
+        return false;
+      }
+      oldPath = `./uploads/products/${product.img}`;
+      deleteImage(oldPath);
+
+      product.img = fileName;
+      await product.save();
+      return true;
+      break;
+
+    case "categories":
+      const category = await Category.findById(id);
+      if (!category) {
+        console.log("Category not found");
+        return false;
+      }
+      oldPath = `./uploads/categories/${category.img}`;
+      deleteImage(oldPath);
+
+      category.img = fileName;
+      await category.save();
       return true;
       break;
 

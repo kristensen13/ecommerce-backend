@@ -54,12 +54,16 @@ const loginGoogle = async (req, res = response) => {
         name,
         email,
         password: "@@@",
-        picture,
+        img: picture,
         google: true,
       });
     } else {
       user = userDB;
       user.google = true;
+    }
+    if (!user.img) {
+      // si no existe usa la de google
+      user.img = picture;
     }
 
     // Save in DB
@@ -85,7 +89,22 @@ const loginGoogle = async (req, res = response) => {
   }
 };
 
+const renewToken = async (req, res = response) => {
+  const uid = req.uid;
+  const user = await User.findById(uid);
+
+  // Generate token - JWT
+  const token = await generateJWT(uid);
+
+  res.json({
+    ok: true,
+    token,
+    user,
+  });
+};
+
 module.exports = {
   login,
   loginGoogle,
+  renewToken,
 };

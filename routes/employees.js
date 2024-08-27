@@ -10,6 +10,7 @@ const { validateFields } = require("../middlewares/validate-fields");
 const { jwtValidate } = require("../middlewares/jwt-validate");
 const {
   getEmployees,
+  getEmployeeById,
   createEmployee,
   updateEmployee,
   deleteEmployee,
@@ -17,7 +18,7 @@ const {
 
 const router = Router();
 
-router.get("/", getEmployees);
+router.get("/", jwtValidate, getEmployees);
 
 router.post(
   "/",
@@ -30,8 +31,19 @@ router.post(
   createEmployee
 );
 
-router.put("/:id", [], updateEmployee);
+router.put(
+  "/:id",
+  [
+    jwtValidate,
+    check("name", "The name of employee is required").not().isEmpty(),
+    check("store", "The store ID must be valid.").isMongoId(),
+    validateFields,
+  ],
+  updateEmployee
+);
 
-router.delete("/:id", deleteEmployee);
+router.delete("/:id", jwtValidate, deleteEmployee);
+
+router.get("/:id", jwtValidate, getEmployeeById);
 
 module.exports = router;
