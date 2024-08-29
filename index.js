@@ -25,7 +25,7 @@ app.use("/api/employees", require("./routes/employees"));
 app.use("/api/stores", require("./routes/stores"));
 app.use("/api/categories", require("./routes/categories"));
 app.use("/api/products", require("./routes/products"));
-app.use("/api/todo", require("./routes/searches"));
+app.use("/api/all", require("./routes/searches"));
 app.use("/api/upload", require("./routes/uploads"));
 app.use("/api/login", require("./routes/auth"));
 

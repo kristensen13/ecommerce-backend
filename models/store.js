@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
 
-const StoreSchema = Schema({
+const StoreSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Name is required"],
@@ -10,7 +10,7 @@ const StoreSchema = Schema({
   },
   user: {
     required: true,
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
 });
@@ -20,4 +20,4 @@ StoreSchema.method("toJSON", function () {
   return object;
 });
 
-module.exports = model("Store", StoreSchema);
+module.exports = mongoose.model("Store", StoreSchema);

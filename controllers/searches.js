@@ -1,11 +1,11 @@
 const { response } = require("express");
 const User = require("../models/user");
 const Store = require("../models/store");
+const Employee = require("../models/employee");
 // const Product = require("../models/product");
 // const Category = require("../models/category");
-const Employee = require("../models/employee");
 
-const getTodo = async (req, res = response) => {
+const getAll = async (req, res = response) => {
   const search = req.params.search;
   const regex = new RegExp(search, "i");
 
@@ -15,7 +15,7 @@ const getTodo = async (req, res = response) => {
   //   //   const categories = await Category.find({ name: regex });
   //   const employees = await Employee.find({ name: regex });
 
-  const [users, employees, stores] = await Promise.all([
+  const [users, stores, employees] = await Promise.all([
     User.find({ name: regex }),
     Store.find({ name: regex }),
     Employee.find({ name: regex }),
@@ -25,9 +25,9 @@ const getTodo = async (req, res = response) => {
     ok: true,
     users,
     stores,
+    employees,
     // products,
     // categories,
-    employees,
   });
 };
 
@@ -67,6 +67,6 @@ const getDocumentsCollection = async (req, res = response) => {
 };
 
 module.exports = {
-  getTodo,
+  getTodo: getAll,
   getDocumentsCollection,
 };
