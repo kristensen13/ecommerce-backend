@@ -1,0 +1,1 @@
+import{$a as a,Qa as o,Ra as r,_ as n,hb as i}from"./chunk-27BBFG4U.js";var m=(()=>{class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=n({type:e,selectors:[["app-orders"]],standalone:!0,features:[i],decls:2,vars:0,template:function(t,p){t&1&&(o(0,"p"),a(1,"orders works!"),r())}})}return e})();export{m as OrdersComponent};

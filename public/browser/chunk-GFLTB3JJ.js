@@ -1,0 +1,1 @@
+import{$a as r,Qa as o,Ra as s,_ as n,hb as a}from"./chunk-27BBFG4U.js";var m=(()=>{class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=n({type:e,selectors:[["app-users"]],standalone:!0,features:[a],decls:2,vars:0,template:function(t,p){t&1&&(o(0,"p"),r(1,"users ksdksdfkd!"),s())}})}return e})();export{m as UsersComponent};
