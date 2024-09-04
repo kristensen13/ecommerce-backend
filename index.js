@@ -1,6 +1,9 @@
 const express = require("express");
 require("dotenv").config();
 const path = require("path");
+const morgan = require("morgan");
+
+const images = require("./routes/uploads-cloudinary");
 
 const cors = require("cors");
 
@@ -9,8 +12,12 @@ const { dbConnection } = require("./database/config");
 // Create an Express app
 const app = express();
 
+app.use(morgan("common"));
+
 // CORS
 app.use(cors());
+
+app.use("/api", images);
 
 // Public directory
 app.use(express.static("public"));
@@ -28,7 +35,7 @@ app.use("/api/stores", require("./routes/stores"));
 app.use("/api/categories", require("./routes/categories"));
 app.use("/api/products", require("./routes/products"));
 app.use("/api/all", require("./routes/searches"));
-app.use("/api/upload", require("./routes/uploads"));
+// app.use("/api/upload", require("./routes/uploads"));
 app.use("/api/login", require("./routes/auth"));
 
 // Listen requests

@@ -18,6 +18,8 @@ const uploadFile = (req, res = response) => {
     });
   }
 
+  console.log(req.files);
+
   // Validate that there is a file
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({
